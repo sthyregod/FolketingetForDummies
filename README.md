@@ -37,3 +37,20 @@ hvad der er bedst. Jeg har godt nok sat nogle rammer som en start, men de er ikk
 blot skabe et fundament man kan gå ud fra. Så snart projektet begynder at få et fodfæste, så vil ting som framework 
 og licens af praktiske årsager selvfølgelig ikke længere være til diskussion. Men indtil da, så byd gerne ind med 
 hvad I tænker!
+
+---
+
+## Development guide
+Projektet benytter `docker-compose` til at køre systemet (`podman-compose` kan også anvendes for Linux-brugere)
+
+* Opret en `.env.development` baseret på `.env.example`. Værdierne er ikke vigtige, da containerne selv refererer til dem.
+* Kør `docker-compose build` for at builde systemet. Det skal som det mindste gøres før første run.
+* Kør `docker-compose up -d main` for at køre systemet. Det vil nu være tilgængeligt på `http://localhost:3000`
+
+Nedenstående kræver at `main` kører
+* For at køre alle tests: `docker-compose run folketinget_for_dummies_test`
+* For at køre enkelt test med verbose: `podman-compose run folketinget_for_dummies_test test/test_file.rb:10 TESTOPTS="-v"`
+
+Første gang systemet sættes op skal databasen oprettes:
+* `docker exec folketinget_for_dummies_app bin/rails db:create RAILS_ENV=development`
+* `docker exec folketinget_for_dummies_app bin/rails db:migrate RAILS_ENV=development`

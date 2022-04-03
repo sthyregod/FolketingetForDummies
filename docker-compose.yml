@@ -1,0 +1,80 @@
+version: '3'
+networks:
+  development:
+  test:
+volumes:
+  db_data:
+  gem_cache:
+  shared_data:
+services:
+  main:
+    image: williamyeh/dummy:latest
+    command: sh -c "echo start"
+    depends_on:
+      - folketinget_for_dummies_app
+      - folketinget_for_dummies_db
+
+  folketinget_for_dummies_db:
+    image: postgres:12.5-alpine
+    container_name: folketinget_for_dummies_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - shared_data:/var/shared
+    networks:
+      - development
+      - test
+    env_file: .env.development
+    ports:
+      - "5099:5432"
+
+  folketinget_for_dummies_app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: folketinget_for_dummies_app
+    volumes:
+      - .:/var/app:z
+      - shared_data:/var/shared
+      - gem_cache:/usr/local/bundle/gems
+    networks:
+      - development
+    ports:
+      - "3000:3000"
+      - "1234:1234"
+      - "26162"
+      - "4000"
+      - "4001"
+      - "4002"
+      - "4003"
+      - "4004"
+    stdin_open: true
+    tty: true
+    env_file: .env.development
+    entrypoint: dev-entrypoint.sh
+    command: ['rails', 'server', '-p', '3000', '-b', '0.0.0.0']
+    environment:
+      RAILS_ENV: development
+    depends_on:
+      - folketinget_for_dummies_db
+
+  folketinget_for_dummies_test:
+    args:
+      - test: $TEST
+    image: localhost/folketinget_for_dummies_app:latest
+    container_name: folketinget_for_dummies
+    volumes:
+      - .:/var/app:z
+      - shared_data:/var/shared
+      - gem_cache:/usr/local/bundle/gems
+    networks:
+      - test
+    ports:
+      - "3001:3000"
+    stdin_open: true
+    tty: true
+    env_file: .env.test
+    entrypoint: test-entrypoint.sh
+    environment:
+      RAILS_ENV: test
+    depends_on:
+      - folketinget_for_dummies_db

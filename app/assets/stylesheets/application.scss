@@ -1,0 +1,64 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+/* TODO: Add partial-specific CSS */
+
+@import "colors";
+
+body {
+  color: $grey-primary;
+  font-family: Roboto, sans-serif;
+}
+
+.feedCard {
+  position: relative;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+}
+
+.gridItem.cardSubject {
+  background: $grey-1;
+  min-height: 150px;
+  color: $grey-2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gridItem.cardContent {
+  padding: 30px 60px;
+}
+
+.cardContent > .text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-style: italic;
+  color: #444444;
+  padding: 2px 0 14px 0;
+}
+
+.feedCard.spoergsmaal > .cardCategory {
+  background: $red-secondary;
+  color: $red-primary;
+  padding: .2rem .5rem;
+  position: absolute;
+  left: 20px;
+  top: -10px;
+}

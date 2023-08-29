@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: Hvordan kan vi løse krisen?
+  text: Uddybende beskrivelse
+  questioner: one
+  recipient: two
+
+two:
+  title: Hvordan kan vi løse krisen?
+  text: Uddybende beskrivelse
+  questioner: one
+  recipient: two

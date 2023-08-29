@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  firstname: Hans
+  lastname: Hansen
+  party: 1
+  sex: Mand
+  birthday: 1967-08-29
+
+two:
+  firstname: Peter
+  lastname: Petersen
+  party: 1
+  sex: Mand
+  birthday: 1984-10-10
